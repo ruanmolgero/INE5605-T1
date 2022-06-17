@@ -43,10 +43,23 @@ class ControladorSistema:
         return self.__controlador_supermercados
 
     def inicializa_sistema(self):
-        self.__controlador_usuarios.abre_tela()
+        self.abre_tela_usuario()
 
     def lancar_produto(self):
+        self.abre_tela_supermercado()
+
+    def abre_tela_usuario(self):
+        self.__controlador_usuarios.abre_tela()
+
+    def abre_tela_supermercado(self):
         self.__controlador_supermercados.abre_tela()
+
+    def abre_tela_categoria(self):
+        self.__controlador_categorias.abre_tela()
+
+    def abre_tela_produto(self):
+        # self.__controlador_produtos.abre_tela()
+        print("self.__controlador_produtos.abre_tela()")
 
     def buscar_produto(self):
         pass
@@ -57,17 +70,22 @@ class ControladorSistema:
     def alterar_produto(self):
         self.__controlador_produtos.abre_tela_altera_produto()
 
-    def incluir_supermercado(self):
-        self.__controlador_supermercados.incluir_supermercado()
+    def criar_supermercado(self):
+        self.__controlador_supermercados.criar_supermercado()
 
     def voltar(self):
         self.__controlador_usuarios.usuario_logado = None  # desloga usuario
+        if self.__controlador_supermercados.supermercado_escolhido is not None:
+            self.__controlador_supermercados.supermercado_escolhido = None
         self.__controlador_usuarios.abre_tela()
 
     def encerra_sistema(self):
         exit(0)
 
     def abre_tela(self):
+        print(f"{self.controlador_usuarios.usuario_logado} |",
+              f"{self.controlador_supermercados.supermercado_escolhido} |",
+              f"{self.controlador_categorias.categoria_escolhida} |")
         tipo_pessoa_logada = self.__controlador_usuarios.tipo_pessoa_logada()
         if tipo_pessoa_logada == "PessoaFisica":
             self.abre_tela_pessoa_fisica()
@@ -92,7 +110,7 @@ class ControladorSistema:
                             3: self.listar_produtos, 4: self.alterar_produto,
                             "b": self.voltar, "q": self.encerra_sistema}
         else:
-            lista_opcoes = {1: self.incluir_supermercado,
+            lista_opcoes = {1: self.criar_supermercado,
                             "b": self.voltar, "q": self.encerra_sistema}
 
         while True:

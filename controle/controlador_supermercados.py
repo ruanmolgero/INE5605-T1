@@ -30,7 +30,7 @@ class ControladorSupermercados:
 
         return supermercado
 
-    def incluir_supermercado(self):
+    def criar_supermercado(self):
         dados_supermercado = self.__tela_supermercado.pega_dados_supermercado()
         supermercado = Supermercado(nome=dados_supermercado['nome'],
                                     endereco=dados_supermercado['endereço'],
@@ -39,9 +39,9 @@ class ControladorSupermercados:
         self.__supermercado_escolhido = supermercado
         self.__controlador_sistema.abre_tela()
 
-    def incluir_categoria(self, supermercado, categoria):
-        if categoria not in supermercado.categorias:
-            supermercado.categorias.append(categoria)
+    def incluir_categoria_ao_supermercado_escolhido(self, categoria):
+        if categoria not in self.__supermercado_escolhido.categorias:
+            self.__supermercado_escolhido.categorias.append(categoria)
 
     def voltar(self):
         if self.__supermercado_escolhido:  # True caso seja pessoa juridica
@@ -52,6 +52,9 @@ class ControladorSupermercados:
         exit(0)
 
     def abre_tela(self):
+        print(f"usuario: {self.__controlador_sistema.controlador_usuarios.usuario_logado} |",
+              f"supermercado: {self.__controlador_sistema.controlador_supermercados.supermercado_escolhido} |",
+              f"categoria: {self.__controlador_sistema.controlador_categorias.categoria_escolhida} |")
         lista_opcoes = {}
         count = 1
         supermercados = {}
@@ -67,6 +70,7 @@ class ControladorSupermercados:
                 supermercados)
             if isinstance(opcao_escolhida, int):
                 self.__supermercado_escolhido = lista_opcoes[opcao_escolhida]
+                self.__controlador_sistema.abre_tela_categoria()
             else:
                 funcao_escolhida = lista_opcoes[opcao_escolhida]
                 funcao_escolhida()
