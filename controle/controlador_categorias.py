@@ -38,7 +38,7 @@ class ControladorCategorias:
                                   descricao=dados_categoria['descrição'])
             self.__categorias.append(categoria)
             self.__categoria_escolhida = categoria
-            self.__controlador_sistema.abre_tela_produto()
+            self.__controlador_sistema.controlador_produtos.abre_tela()
 
     def incluir_produto_a_categoria_escolhida(self, produto):
         if produto not in self.__categoria_escolhida.produtos:
@@ -71,7 +71,7 @@ class ControladorCategorias:
                 categorias)
             if isinstance(opcao_escolhida, int) and opcao_escolhida in list(range(1, len(categorias) + 1)):
                 self.__categoria_escolhida = lista_opcoes[opcao_escolhida]
-                self.__controlador_sistema.abre_tela_produto()
+                self.__controlador_sistema.controlador_produtos.abre_tela()
             else:
                 funcao_escolhida = lista_opcoes[opcao_escolhida]
                 funcao_escolhida()

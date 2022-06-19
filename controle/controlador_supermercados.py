@@ -70,7 +70,7 @@ class ControladorSupermercados:
                 supermercados)
             if isinstance(opcao_escolhida, int):
                 self.__supermercado_escolhido = lista_opcoes[opcao_escolhida]
-                self.__controlador_sistema.abre_tela_categoria()
+                self.__controlador_sistema.controlador_categorias.abre_tela()
             else:
                 funcao_escolhida = lista_opcoes[opcao_escolhida]
                 funcao_escolhida()

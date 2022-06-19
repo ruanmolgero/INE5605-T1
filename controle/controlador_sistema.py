@@ -14,7 +14,7 @@ class ControladorSistema:
         self.__controlador_usuarios = ControladorUsuarios(self)
         self.__controlador_precos = ControladorPrecos()
         self.__controlador_produtos = ControladorProdutos(self)
-        self.__controlador_qualificadores = ControladorQualificadores()
+        self.__controlador_qualificadores = ControladorQualificadores(self)
         self.__controlador_supermercados = ControladorSupermercados(self)
         self.__tela_sistema = TelaSistema()
 
@@ -53,12 +53,6 @@ class ControladorSistema:
 
     def abre_tela_supermercado(self):
         self.__controlador_supermercados.abre_tela()
-
-    def abre_tela_categoria(self):
-        self.__controlador_categorias.abre_tela()
-
-    def abre_tela_produto(self):
-        self.__controlador_produtos.abre_tela()
 
     def buscar_produto(self):
         pass
