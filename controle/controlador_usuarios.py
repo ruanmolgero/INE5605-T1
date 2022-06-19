@@ -17,7 +17,7 @@ class ControladorUsuarios:
 
     @usuario_logado.setter
     def usuario_logado(self, usuario_logado):
-        if isinstance(usuario_logado, PessoaFisica) or isinstance(usuario_logado, PessoaJuridica):
+        if isinstance(usuario_logado, PessoaFisica) or isinstance(usuario_logado, PessoaJuridica) or usuario_logado is None:
             self.__usuario_logado = usuario_logado
 
     def tipo_pessoa_logada(self):

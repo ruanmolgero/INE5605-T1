@@ -20,21 +20,26 @@ class ControladorCategorias:
 
     @categoria_escolhida.setter
     def categoria_escolhida(self, categoria_escolhida):
-        if isinstance(categoria_escolhida, Categoria):
+        if isinstance(categoria_escolhida, Categoria) or categoria_escolhida is None:
             self.__categoria_escolhida = categoria_escolhida
 
     def criar_categoria(self):
         dados_categoria = self.__tela_categoria.pega_dados_categoria()
-        for c in self.__categorias:
-            if dados_categoria["nome"] == c.nome and dados_categoria["descrição"] == c.descricao:
+        categoria_valida = True
+        count = 0
+        while categoria_valida and count < len(self.__categorias):
+            if dados_categoria["nome"] == self.__categorias[count].nome and \
+                    dados_categoria["descrição"] == self.__categorias[count].descricao:
                 self.__tela_categoria.mostra_mensagem(
                     "Categoria já cadastrada")
-            else:
-                categoria = Categoria(nome=dados_categoria['nome'],
-                                      descricao=dados_categoria['descrição'])
-                self.__categorias.append(categoria)
-                self.__categoria_escolhida = categoria
-                self.__controlador_sistema.abre_tela_produto()
+                categoria_valida = False
+            count = count + 1
+        if categoria_valida:
+            categoria = Categoria(nome=dados_categoria['nome'],
+                                  descricao=dados_categoria['descrição'])
+            self.__categorias.append(categoria)
+            self.__categoria_escolhida = categoria
+            self.__controlador_sistema.abre_tela_produto()
 
     def voltar(self):
         self.__controlador_sistema.controlador_supermercados.supermercado_escolhido = None

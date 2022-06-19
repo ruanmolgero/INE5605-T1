@@ -19,7 +19,7 @@ class ControladorSupermercados:
 
     @supermercado_escolhido.setter
     def supermercado_escolhido(self, supermercado_escolhido):
-        if isinstance(supermercado_escolhido, Supermercado):
+        if isinstance(supermercado_escolhido, Supermercado) or supermercado_escolhido is None:
             self.__supermercado_escolhido = supermercado_escolhido
 
     def acha_supermercado_por_cnpj(self, cnpj: str) -> Supermercado:
