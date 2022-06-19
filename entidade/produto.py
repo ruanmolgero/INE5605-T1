@@ -6,17 +6,17 @@ from entidade.preco import Preco
 
 class Produto:
     def __init__(self, nome: str, descricao: str,
-                 qualificador: Qualificador, valor: float, usuario) -> None:
+                 qualificador: Qualificador, valor: float, cadastrante: PessoaFisica or PessoaJuridica) -> None:
         if isinstance(nome, str):
             self.__nome = nome
         if isinstance(descricao, str):
             self.__descricao = descricao
-        if isinstance(qualificador, Qualificador):
-            self.__qualificador = qualificador
+        # if isinstance(qualificador, Qualificador):
+        self.__qualificadores = []
         if isinstance(valor, float):
             self.__preco = Preco(valor=valor)
-        if isinstance(usuario, PessoaFisica) or isinstance(usuario, PessoaJuridica):
-            self.__usuario = usuario
+        if isinstance(cadastrante, PessoaFisica) or isinstance(cadastrante, PessoaJuridica):
+            self.__cadastrante = cadastrante
 
     @property
     def nome(self) -> str:
@@ -55,10 +55,10 @@ class Produto:
             self.__preco = preco
 
     @property
-    def usuario(self):
-        return self.__usuario
+    def cadastrante(self):
+        return self.__cadastrante
 
-    @usuario.setter
-    def usuario(self, usuario):
-        if isinstance(usuario, PessoaFisica) or isinstance(usuario, PessoaJuridica):
-            self.__usuario = usuario
+    @cadastrante.setter
+    def cadastrante(self, cadastrante):
+        if isinstance(cadastrante, PessoaFisica) or isinstance(cadastrante, PessoaJuridica):
+            self.__cadastrante = cadastrante

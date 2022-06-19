@@ -1,4 +1,3 @@
-from entidade import categoria
 from entidade.categoria import Categoria
 from limite.tela_categoria import TelaCategoria
 
@@ -40,6 +39,10 @@ class ControladorCategorias:
             self.__categorias.append(categoria)
             self.__categoria_escolhida = categoria
             self.__controlador_sistema.abre_tela_produto()
+
+    def incluir_produto_a_categoria_escolhida(self, produto):
+        if produto not in self.__categoria_escolhida.produtos:
+            self.__categoria_escolhida.produtos.append(produto)
 
     def voltar(self):
         self.__controlador_sistema.controlador_supermercados.supermercado_escolhido = None
