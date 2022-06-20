@@ -34,5 +34,9 @@ class TelaProduto(AbstractTela):
     #TODO: tratamento float
     def pega_valor_produto(self):
         print("-------- PREÇO ----------")
-        valor = float(input("Preco: "))
-        return valor
+        while True:
+            try:
+                valor = float(input("Preco: "))
+                return valor
+            except ValueError:
+                print("Valor inválido, favor digitar um valor no formato: xx.xx.")
