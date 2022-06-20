@@ -6,17 +6,14 @@ from entidade.preco import Preco
 
 class Produto:
     def __init__(self, nome: str, descricao: str,
-                 qualificador: Qualificador, valor: float, cadastrante: PessoaFisica or PessoaJuridica) -> None:
+                 qualificadores: list) -> None:
         if isinstance(nome, str):
             self.__nome = nome
         if isinstance(descricao, str):
             self.__descricao = descricao
-        # if isinstance(qualificador, Qualificador):
-        self.__qualificadores = []
-        if isinstance(valor, float):
-            self.__preco = Preco(valor=valor)
-        if isinstance(cadastrante, PessoaFisica) or isinstance(cadastrante, PessoaJuridica):
-            self.__cadastrante = cadastrante
+        if isinstance(qualificadores, list):
+            self.__qualificadores = qualificadores
+        self.__precos = []
 
     @property
     def nome(self) -> str:
@@ -37,28 +34,9 @@ class Produto:
             self.__descricao = descricao
 
     @property
-    def qualificador(self) -> Qualificador:
-        return self.__qualificador
-
-    @qualificador.setter
-    def qualificador(self, qualificador: Qualificador):
-        if isinstance(qualificador, Qualificador):
-            self.__qualificador = qualificador
+    def qualificadores(self) -> Qualificador:
+        return self.__qualificadores
 
     @property
-    def preco(self) -> Preco:
-        return self.__preco
-
-    @preco.setter
-    def preco(self, preco: Preco):
-        if isinstance(preco, Preco):
-            self.__preco = preco
-
-    @property
-    def cadastrante(self):
-        return self.__cadastrante
-
-    @cadastrante.setter
-    def cadastrante(self, cadastrante):
-        if isinstance(cadastrante, PessoaFisica) or isinstance(cadastrante, PessoaJuridica):
-            self.__cadastrante = cadastrante
+    def precos(self) -> Preco:
+        return self.__precos

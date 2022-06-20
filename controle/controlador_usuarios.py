@@ -124,9 +124,6 @@ class ControladorUsuarios:
         exit(0)
 
     def abre_tela(self):
-        print(f"usuario: {self.__controlador_sistema.controlador_usuarios.usuario_logado} |",
-              f"supermercado: {self.__controlador_sistema.controlador_supermercados.supermercado_escolhido} |",
-              f"categoria: {self.__controlador_sistema.controlador_categorias.categoria_escolhida} |")
         lista_opcoes = {1: self.realiza_login, 2: self.incluir_usuario,
                         "q": self.encerra_sistema}
 

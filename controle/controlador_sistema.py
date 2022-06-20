@@ -2,8 +2,7 @@ from entidade.supermercado import Supermercado
 from limite.tela_sistema import TelaSistema
 from controle.controlador_categorias import ControladorCategorias
 from controle.controlador_usuarios import ControladorUsuarios
-from controle.controlador_precos import ControladorPrecos
-from controle.controlador_produtos import ControladorProdutos
+from controle.controlador_produtos_e_precos import ControladorProdutosPrecos
 from controle.controlador_qualificadores import ControladorQualificadores
 from controle.controlador_supermercados import ControladorSupermercados
 
@@ -12,8 +11,7 @@ class ControladorSistema:
     def __init__(self) -> None:
         self.__controlador_categorias = ControladorCategorias(self)
         self.__controlador_usuarios = ControladorUsuarios(self)
-        self.__controlador_precos = ControladorPrecos()
-        self.__controlador_produtos = ControladorProdutos(self)
+        self.__controlador_produtos_e_precos = ControladorProdutosPrecos(self)
         self.__controlador_qualificadores = ControladorQualificadores(self)
         self.__controlador_supermercados = ControladorSupermercados(self)
         self.__tela_sistema = TelaSistema()
@@ -27,12 +25,8 @@ class ControladorSistema:
         return self.__controlador_usuarios
 
     @property
-    def controlador_precos(self) -> ControladorPrecos:
-        return self.__controlador_precos
-
-    @property
-    def controlador_produtos(self) -> ControladorProdutos:
-        return self.__controlador_produtos
+    def controlador_produtos_e_precos(self) -> ControladorProdutosPrecos:
+        return self.__controlador_produtos_e_precos
 
     @property
     def controlador_qualificadores(self) -> ControladorQualificadores:
@@ -45,23 +39,23 @@ class ControladorSistema:
     def inicializa_sistema(self):
         self.abre_tela_usuario()
 
-    def lancar_produto(self):
-        self.abre_tela_supermercado()
+    def lancar_produto_pessoa_fisica(self):
+        self.__controlador_supermercados.abre_tela()
+
+    def lancar_produto_pessoa_juridica(self):
+        self.__controlador_categorias.abre_tela()
 
     def abre_tela_usuario(self):
         self.__controlador_usuarios.abre_tela()
-
-    def abre_tela_supermercado(self):
-        self.__controlador_supermercados.abre_tela()
 
     def buscar_produto(self):
         pass
 
     def listar_produtos(self):
-        self.__controlador_produtos.lista_produto()
+        self.__controlador_produtos_e_precos.lista_produto()
 
     def alterar_produto(self):
-        self.__controlador_produtos.abre_tela_altera_produto()
+        self.__controlador_produtos_e_precos.abre_tela_altera_produto()
 
     def criar_supermercado(self):
         self.__controlador_supermercados.criar_supermercado()
@@ -76,9 +70,6 @@ class ControladorSistema:
         exit(0)
 
     def abre_tela(self):
-        print(f"{self.controlador_usuarios.usuario_logado} |",
-              f"{self.controlador_supermercados.supermercado_escolhido} |",
-              f"{self.controlador_categorias.categoria_escolhida} |")
         tipo_pessoa_logada = self.__controlador_usuarios.tipo_pessoa_logada()
         if tipo_pessoa_logada == "PessoaFisica":
             self.abre_tela_pessoa_fisica()
@@ -89,7 +80,7 @@ class ControladorSistema:
             self.abre_tela_pessoa_juridica(supermercado_associado)
 
     def abre_tela_pessoa_fisica(self):
-        lista_opcoes = {1: self.lancar_produto, 2: self.buscar_produto,
+        lista_opcoes = {1: self.lancar_produto_pessoa_fisica, 2: self.buscar_produto,
                         "b": self.voltar, "q": self.encerra_sistema}
 
         while True:
@@ -99,7 +90,7 @@ class ControladorSistema:
 
     def abre_tela_pessoa_juridica(self, supermercado_associado: bool = False):
         if supermercado_associado:
-            lista_opcoes = {1: self.lancar_produto, 2: self.buscar_produto,
+            lista_opcoes = {1: self.lancar_produto_pessoa_juridica, 2: self.buscar_produto,
                             3: self.listar_produtos, 4: self.alterar_produto,
                             "b": self.voltar, "q": self.encerra_sistema}
         else:

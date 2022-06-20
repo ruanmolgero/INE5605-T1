@@ -52,9 +52,6 @@ class ControladorSupermercados:
         exit(0)
 
     def abre_tela(self):
-        print(f"usuario: {self.__controlador_sistema.controlador_usuarios.usuario_logado} |",
-              f"supermercado: {self.__controlador_sistema.controlador_supermercados.supermercado_escolhido} |",
-              f"categoria: {self.__controlador_sistema.controlador_categorias.categoria_escolhida} |")
         lista_opcoes = {}
         count = 1
         supermercados = {}

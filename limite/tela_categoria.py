@@ -6,10 +6,15 @@ class TelaCategoria(AbstractTela):
         super().__init__()
 
     def tela_opcoes(self, categorias):
-        print("-------- Bem-vindo ao sistema de controle de preço interativo ---------")
-        print("Opções:")
-        for c in categorias:
-            print(f"{c} - {categorias[c][0]}, {categorias[c][1]}")
+        print("-------- CATEGORIAS ---------")
+        print("Categorias existentes:")
+        if categorias != {}:
+            for c in categorias:
+                print(f"{c} - {categorias[c][0]}: {categorias[c][1]}")
+        else:
+            print("Nenhuma")
+            print("-----------------------------")
+        print("Outras opções:")
         print(f"{len(categorias) + 1} - Adicionar Categoria")
         print("b - Voltar")
         print("q - Sair do Sistema")

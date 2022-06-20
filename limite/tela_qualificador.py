@@ -5,15 +5,21 @@ class TelaQualificador(AbstractTela):
         super().__init__()
 
     def tela_opcoes(self, qualificadores):
-        print("-------- Bem-vindo ao sistema de controle de preço interativo ---------")
-        print("Opções:")
-        for q in qualificadores:
-            print(f"{q} - {qualificadores[q][0]}, {qualificadores[q][1]}")
+        print("-------- QUALIFICADORES ---------")
+        print("Qualificadores existentes:")
+        if qualificadores != {}:
+            for q in qualificadores:
+                print(f"{q} - {qualificadores[q][0]}: {qualificadores[q][1]}")
+        else:
+            print("Nenhum")
+            print("-----------------------------")
+        print("Outras opções:")
         print(f"{len(qualificadores) + 1} - Adicionar Qualificador")
+        print("c - Continuar")
         print("b - Voltar")
         print("q - Sair do Sistema")
         opcao = super().le_opcao(mensagem="Escolha a opcao: ",
-                                 entradas_validas=(list(range(1, len(qualificadores) + 1)) + [len(qualificadores) + 1, "b", "q"]))
+                                 entradas_validas=(list(range(1, len(qualificadores) + 1)) + [len(qualificadores) + 1, "c", "b", "q"]))
         return opcao
 
     def pega_dados_qualificador(self):

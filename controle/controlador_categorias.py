@@ -38,7 +38,7 @@ class ControladorCategorias:
                                   descricao=dados_categoria['descrição'])
             self.__categorias.append(categoria)
             self.__categoria_escolhida = categoria
-            self.__controlador_sistema.controlador_produtos.abre_tela()
+            self.__controlador_sistema.controlador_produtos_e_precos.abre_tela_produto()
 
     def incluir_produto_a_categoria_escolhida(self, produto):
         if produto not in self.__categoria_escolhida.produtos:
@@ -52,9 +52,6 @@ class ControladorCategorias:
         exit(0)
 
     def abre_tela(self):
-        print(f"usuario: {self.__controlador_sistema.controlador_usuarios.usuario_logado} |",
-              f"supermercado: {self.__controlador_sistema.controlador_supermercados.supermercado_escolhido} |",
-              f"categoria: {self.__controlador_sistema.controlador_categorias.categoria_escolhida} |")
         lista_opcoes = {}
         count = 1
         categorias = {}
@@ -71,7 +68,7 @@ class ControladorCategorias:
                 categorias)
             if isinstance(opcao_escolhida, int) and opcao_escolhida in list(range(1, len(categorias) + 1)):
                 self.__categoria_escolhida = lista_opcoes[opcao_escolhida]
-                self.__controlador_sistema.controlador_produtos.abre_tela()
+                self.__controlador_sistema.controlador_produtos_e_precos.abre_tela_produto()
             else:
                 funcao_escolhida = lista_opcoes[opcao_escolhida]
                 funcao_escolhida()

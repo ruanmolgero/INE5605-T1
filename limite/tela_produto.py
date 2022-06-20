@@ -5,13 +5,19 @@ class TelaProduto(AbstractTela):
     def __init__(self) -> None:
         super().__init__()
 
-    #TODO:
+    #TODO: colocar qualificadores
     def tela_opcoes(self, produtos):
-        print("-------- Bem-vindo ao sistema de controle de preço interativo ---------")
-        print("Opções:")
-        for p in produtos:
-            print(f"{p} - {produtos[p][0]}, {produtos[p][1]}")
-        print(f"{len(produtos) + 1} - Adicionar Categoria")
+        print("-------- PRODUTOS ---------")
+        print("Produtos existentes:")
+        if produtos != {}:
+            for p in produtos:
+                print(f"{p} - {produtos[p][0]}: {produtos[p][1]}")
+            # for q in
+        else:
+            print("Nenhum")
+            print("-----------------------------")
+        print("Outras opções:")
+        print(f"{len(produtos) + 1} - Adicionar Produto")
         print("b - Voltar")
         print("q - Sair do Sistema")
         opcao = super().le_opcao(mensagem="Escolha a opcao: ",
@@ -24,3 +30,9 @@ class TelaProduto(AbstractTela):
         dados_produto["nome"] = input("Nome: ")
         dados_produto["descrição"] = input("Descrição: ")
         return dados_produto
+
+    #TODO: tratamento float
+    def pega_valor_produto(self):
+        print("-------- PREÇO ----------")
+        valor = float(input("Preco: "))
+        return valor
