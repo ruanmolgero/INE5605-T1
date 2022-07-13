@@ -17,7 +17,7 @@ class ControladorQualificador:
     def qualificadores_selecionados(self):
         return self.__qualificadores_selecionados
 
-    def adicionar_qualificador_escolhido(self, qualificador):
+    def adicionar_qualificador_selecionado(self, qualificador):
         if isinstance(qualificador, Qualificador) and \
                 qualificador not in self.__qualificadores_selecionados:
             self.__qualificadores_selecionados.append(qualificador)
@@ -48,22 +48,22 @@ class ControladorQualificador:
         qualificador_existente = self.achar_qualificador_igual(qualificador)
         if not qualificador_existente:
             self.qualificadores.append(qualificador)
-            self.adicionar_qualificador_escolhido(qualificador)
+            self.adicionar_qualificador_selecionado(qualificador)
             # if not dados:
-            #     self.__controlador_sistema.controlador_produto_preco.abre_tela_produto()
+            #     self.__controlador_sistema.controlador_produto_preco.abrir_tela_produto()
         else:
-            # qualificador jah existe, mas adiciona ainda assim na lista de escolhidos
-            self.adicionar_qualificador_escolhido(qualificador)
+            # qualificador jah existe, mas adiciona ainda assim na lista de selecionados
+            self.adicionar_qualificador_selecionado(qualificador)
             raise
 
     def voltar(self):
         self.zerar_qualificadores_selecionados()
-        # self.__controlador_sistema.controlador_produto_preco.abre_tela_produto()
+        self.__controlador_sistema.controlador_produto_preco.abrir_tela_produto()
 
     def encerrar_sistema(self):
         exit(0)
 
-    def abre_tela(self, qualificadores_selecionados: list = []):
+    def abrir_tela(self, qualificadores_selecionados: list = []):
         lista_opcoes = {}
         count = 1
         qualificadores = {}
@@ -75,17 +75,17 @@ class ControladorQualificador:
                     qualificador.titulo, qualificador.descricao)
         lista_opcoes[len(lista_opcoes)+1] = self.criar_qualificador
         lista_opcoes["b"] = self.voltar
-        lista_opcoes["q"] = self.encerra_sistema
+        lista_opcoes["q"] = self.encerrar_sistema
 
         while True:
-            opcao_escolhida = self.__tela_qualificador.tela_opcoes(
+            opcao_selecionada = self.__tela_qualificador.tela_opcoes(
                 qualificadores)
-            if isinstance(opcao_escolhida, int) and opcao_escolhida in list(range(1, len(qualificadores) + 1)):
-                self.adicionar_qualificador_escolhido(
-                    lista_opcoes[opcao_escolhida])
-                self.abre_tela(self.__qualificadores_selecionados)
-            elif opcao_escolhida == "c":
+            if isinstance(opcao_selecionada, int) and opcao_selecionada in list(range(1, len(qualificadores) + 1)):
+                self.adicionar_qualificador_selecionado(
+                    lista_opcoes[opcao_selecionada])
+                self.abrir_tela(self.__qualificadores_selecionados)
+            elif opcao_selecionada == "c":
                 return
             else:
-                funcao_escolhida = lista_opcoes[opcao_escolhida]
-                funcao_escolhida()
+                funcao_selecionada = lista_opcoes[opcao_selecionada]
+                funcao_selecionada()

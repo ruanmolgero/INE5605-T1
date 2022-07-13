@@ -48,19 +48,19 @@ class ControladorSupermercado:
         self.supermercados.append(supermercado)
         self.supermercado_selecionado = supermercado
         if not dados:
-            self.__controlador_sistema.abre_tela()
+            self.__controlador_sistema.abrir_tela()
 
     # Métodos que apenas copiei do código antigo
 
     def voltar(self):
         if self.__supermercado_selecionado:  # True caso seja pessoa juridica
             self.__supermercado_selecionado = None
-        self.__controlador_sistema.abre_tela()
+        self.__controlador_sistema.abrir_tela()
 
-    def encerra_sistema(self):
+    def encerrar_sistema(self):
         exit(0)
 
-    def abre_tela(self):
+    def abrir_tela(self):
         lista_opcoes = {}
         count = 1
         supermercados = {}
@@ -69,14 +69,14 @@ class ControladorSupermercado:
             lista_opcoes[count] = supermercado
             supermercados[count] = (supermercado.nome, supermercado.endereco)
         lista_opcoes["b"] = self.voltar
-        lista_opcoes["q"] = self.encerra_sistema
+        lista_opcoes["q"] = self.encerrar_sistema
 
         while True:
-            opcao_escolhida = self.__tela_supermercado.tela_opcoes(
+            opcao_selecionada = self.__tela_supermercado.tela_opcoes(
                 supermercados)
-            if isinstance(opcao_escolhida, int):
-                self.__supermercado_selecionado = lista_opcoes[opcao_escolhida]
-                self.__controlador_sistema.controlador_categorias.abre_tela()
+            if isinstance(opcao_selecionada, int):
+                self.__supermercado_selecionado = lista_opcoes[opcao_selecionada]
+                self.__controlador_sistema.controlador_categoria.abrir_tela()
             else:
-                funcao_escolhida = lista_opcoes[opcao_escolhida]
-                funcao_escolhida()
+                funcao_selecionada = lista_opcoes[opcao_selecionada]
+                funcao_selecionada()

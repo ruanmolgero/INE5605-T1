@@ -125,7 +125,7 @@ class ControladorUsuario:
                         self.__tela_usuario.mostra_mensagem(f"Seja Bem-Vindo {usuario.nome}")
                         self.__usuario_logado = usuario
                         if not dados:
-                            self.__controlador_sistema.abre_tela()
+                            self.__controlador_sistema.abrir_tela()
                     else:
                         self.__tela_usuario.mostra_mensagem("Informações de login incorretas!")
                 else:
@@ -137,7 +137,7 @@ class ControladorUsuario:
                         self.__tela_usuario.mostra_mensagem(f"Seja Bem-Vindo {usuario.nome}")
                         self.__usuario_logado = usuario
                         if not dados:
-                            self.__controlador_sistema.abre_tela()
+                            self.__controlador_sistema.abrir_tela()
                     else:
                         self.__tela_usuario.mostra_mensagem("Informações de login incorretas!")
                 else:
@@ -168,6 +168,6 @@ class ControladorUsuario:
                         "q": self.encerrar_sistema}
 
         while True:
-            opcao_escolhida = self.__tela_usuario.tela_opcoes()
-            funcao_escolhida = lista_opcoes[opcao_escolhida]
-            funcao_escolhida()
+            opcao_selecionada = self.__tela_usuario.tela_opcoes()
+            funcao_selecionada = lista_opcoes[opcao_selecionada]
+            funcao_selecionada()

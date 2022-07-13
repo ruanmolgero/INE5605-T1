@@ -70,7 +70,7 @@ class ControladorProdutoPreco:
     def criar_produto(self, dados: dict = None):
         if not dados:
             dados_produto = self.__tela_produto.pega_dados_produto()
-            self.__controlador_sistema.controlador_qualificador.abre_tela()
+            self.__controlador_sistema.controlador_qualificador.abrir_tela()
             dados_produto['valor'] = self.__tela_produto.pega_valor_produto()
         else:
             dados_produto = dados
@@ -113,19 +113,22 @@ class ControladorProdutoPreco:
 
             self.produtos.append(produto)
 
+        if not dados:
+            self.abrir_tela_produto()
+
     def adiciona_cadastrante_a_preco(self, preco, cadastrante):
         if cadastrante not in preco.cadastrantes:
             preco.cadastrantes.append(cadastrante)
 
     def voltar(self):
-        self.__controlador_sistema.controlador_categorias.categoria_escolhida = None
-        self.__controlador_sistema.controlador_qualificadores.zera_qualificadores_escolhidos()
-        self.__controlador_sistema.controlador_categorias.abre_tela()
+        self.__controlador_sistema.controlador_categoria.categoria_selecionada = None
+        self.__controlador_sistema.controlador_qualificador.zerar_qualificadores_selecionados()
+        self.__controlador_sistema.controlador_categoria.abrir_tela()
 
-    def encerra_sistema(self):
+    def encerrar_sistema(self):
         exit(0)
 
-    def abre_tela_produto(self):
+    def abrir_tela_produto(self):
         lista_opcoes = {}
         count = 1
         produtos = {}
@@ -139,15 +142,15 @@ class ControladorProdutoPreco:
             produtos[count] = (produto.nome, produto.descricao)
         lista_opcoes[len(self.__produtos)+1] = self.criar_produto
         lista_opcoes["b"] = self.voltar
-        lista_opcoes["q"] = self.encerra_sistema
+        lista_opcoes["q"] = self.encerrar_sistema
 
         while True:
-            opcao_escolhida = self.__tela_produto.tela_opcoes(
+            opcao_selecionada = self.__tela_produto.tela_opcoes(
                 produtos)
-            if isinstance(opcao_escolhida, int) and opcao_escolhida in list(range(1, len(produtos) + 1)):
-                self.__produto_selecionado = lista_opcoes[opcao_escolhida]
-                if self.__controlador_sistema.controlador_qualificadores.qualificadores_escolhidos == []:
-                    self.__controlador_sistema.controlador_qualificadores.abre_tela()
+            if isinstance(opcao_selecionada, int) and opcao_selecionada in list(range(1, len(produtos) + 1)):
+                self.__produto_selecionado = lista_opcoes[opcao_selecionada]
+                if self.__controlador_sistema.controlador_qualificador.qualificadores_selecionados == []:
+                    self.__controlador_sistema.controlador_qualificador.abrir_tela()
             else:
-                funcao_escolhida = lista_opcoes[opcao_escolhida]
-                funcao_escolhida()
+                funcao_selecionada = lista_opcoes[opcao_selecionada]
+                funcao_selecionada()

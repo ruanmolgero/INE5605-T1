@@ -1,3 +1,5 @@
+from entidade.pessoa_fisica import PessoaFisica
+from entidade.pessoa_juridica import PessoaJuridica
 from limite.tela_sistema import TelaSistema
 from controle.controlador_categoria import ControladorCategoria
 from controle.controlador_usuario import ControladorUsuario
@@ -36,68 +38,68 @@ class ControladorSistema:
         return self.__controlador_supermercado
 
     def inicializa_sistema(self):
-        self.abre_tela_usuario()
+        self.abrir_tela_usuario()
 
     def lancar_produto_pessoa_fisica(self):
-        self.__controlador_supermercados.abre_tela()
+        self.controlador_supermercado.abrir_tela()
 
     def lancar_produto_pessoa_juridica(self):
-        self.__controlador_categorias.abre_tela()
+        self.controlador_categoria.abrir_tela()
 
-    def abre_tela_usuario(self):
-        self.__controlador_usuarios.abre_tela()
+    def abrir_tela_usuario(self):
+        self.controlador_usuario.abrir_tela()
 
     def buscar_produto(self):
         pass
 
-    def listar_produtos(self):
-        self.__controlador_produtos_e_precos.lista_produto()
+    # def listar_produtos(self):
+    #     self.controlador_produto_preco.listar_produto()
 
-    def alterar_produto(self):
-        self.__controlador_produtos_e_precos.abre_tela_altera_produto()
+    # def alterar_produto(self):
+    #     self.controlador_produto_preco.abrir_tela_altera_produto()
 
     def criar_supermercado(self):
-        self.__controlador_supermercados.criar_supermercado()
+        self.controlador_supermercado.criar_supermercado()
 
     def voltar(self):
-        self.__controlador_usuarios.usuario_logado = None  # desloga usuario
-        if self.__controlador_supermercados.supermercado_escolhido is not None:
-            self.__controlador_supermercados.supermercado_escolhido = None
-        self.__controlador_usuarios.abre_tela()
+        self.controlador_usuario.usuario_logado = None  # desloga usuario
+        if self.controlador_supermercado.supermercado_selecionado is not None:
+            self.controlador_supermercado.supermercado_selecionado = None
+        self.controlador_usuario.abrir_tela()
 
-    def encerra_sistema(self):
+    def encerrar_sistema(self):
         exit(0)
 
-    def abre_tela(self):
-        tipo_pessoa_logada = self.__controlador_usuarios.tipo_pessoa_logada()
-        if tipo_pessoa_logada == "PessoaFisica":
-            self.abre_tela_pessoa_fisica()
-        elif tipo_pessoa_logada == "PessoaJuridica":
-            supermercado_associado = self.controlador_supermercados.acha_supermercado_por_cnpj(
-                self.__controlador_usuarios.usuario_logado.cnpj)
-            self.__controlador_supermercados.supermercado_escolhido = supermercado_associado
-            self.abre_tela_pessoa_juridica(supermercado_associado)
+    def abrir_tela(self):
+        usuario_logado = self.controlador_usuario.usuario_logado
+        if isinstance(usuario_logado, PessoaFisica):
+            self.abrir_tela_pessoa_fisica()
+        elif isinstance(usuario_logado, PessoaJuridica):
+            supermercado_associado = self.controlador_supermercado.achar_supermercado_por_cnpj(
+                self.controlador_usuario.usuario_logado.cnpj)
+            self.controlador_supermercado.supermercado_selecionado = supermercado_associado
+            self.abrir_tela_pessoa_juridica(supermercado_associado)
 
-    def abre_tela_pessoa_fisica(self):
+    def abrir_tela_pessoa_fisica(self):
         lista_opcoes = {1: self.lancar_produto_pessoa_fisica, 2: self.buscar_produto,
-                        "b": self.voltar, "q": self.encerra_sistema}
+                        "b": self.voltar, "q": self.encerrar_sistema}
 
         while True:
-            opcao_escolhida = self.__tela_sistema.tela_opcoes_pessoa_fisica()
-            funcao_escolhida = lista_opcoes[opcao_escolhida]
-            funcao_escolhida()
+            opcao_selecionada = self.__tela_sistema.tela_opcoes_pessoa_fisica()
+            funcao_selecionada = lista_opcoes[opcao_selecionada]
+            funcao_selecionada()
 
-    def abre_tela_pessoa_juridica(self, supermercado_associado: bool = False):
+    def abrir_tela_pessoa_juridica(self, supermercado_associado: bool = False):
         if supermercado_associado:
             lista_opcoes = {1: self.lancar_produto_pessoa_juridica, 2: self.buscar_produto,
-                            3: self.listar_produtos, 4: self.alterar_produto,
-                            "b": self.voltar, "q": self.encerra_sistema}
+                            # 3: self.listar_produtos, 4: self.alterar_produto,
+                            "b": self.voltar, "q": self.encerrar_sistema}
         else:
             lista_opcoes = {1: self.criar_supermercado,
-                            "b": self.voltar, "q": self.encerra_sistema}
+                            "b": self.voltar, "q": self.encerrar_sistema}
 
         while True:
-            opcao_escolhida = self.__tela_sistema.tela_opcoes_pessoa_juridica(
+            opcao_selecionada = self.__tela_sistema.tela_opcoes_pessoa_juridica(
                 supermercado_associado)
-            funcao_escolhida = lista_opcoes[opcao_escolhida]
-            funcao_escolhida()
+            funcao_selecionada = lista_opcoes[opcao_selecionada]
+            funcao_selecionada()

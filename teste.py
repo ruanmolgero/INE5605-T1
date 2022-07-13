@@ -109,21 +109,17 @@ print()
 dados_supermercado1 = {
     "nome": s1.nome,
     "endereço": s1.endereco,
-    # "cadastrante": s1.cadastrante
 }
 
 dados_supermercado2 = {
     "nome": s2.nome,
     "endereço": s2.endereco,
-    # "cadastrante": s2.cadastrante
 }
 
-controlador_sistema.controlador_supermercado.criar_supermercado(dados=dados_supermercado2)
 controlador_sistema.controlador_supermercado.criar_supermercado(dados=dados_supermercado1)
+supermercado_selecionado = controlador_supermercado.supermercado_selecionado
 print(f"Supermercados: {controlador_supermercado.supermercados}")
-print(f"Supermercado escolhido: {controlador_supermercado.supermercado_selecionado}")
-# controlador_sistema.controlador_supermercado.criar_supermercado(dados=dados_supermercado2)
-# print(f"Supermercado escolhido: {controlador_supermercado.supermercado_escolhido}")
+print(f"Supermercado selecionado: {supermercado_selecionado}")
 print()
 
 
@@ -131,20 +127,17 @@ print()
 dados_categoria1 = {
     "nome": c1.nome,
     "descricao": c1.descricao,
-    # "cadastrante": s1.cadastrante
 }
 
 dados_categoria2 = {
     "nome": c2.nome,
     "descricao": c2.descricao,
-    # "cadastrante": s2.cadastrante
 }
 
-controlador_sistema.controlador_categoria.criar_categoria(dados=dados_categoria2)
 controlador_sistema.controlador_categoria.criar_categoria(dados=dados_categoria1)
-supermercado_selecionado = controlador_supermercado.supermercado_selecionado
-print(f"Categorias supermercado {supermercado_selecionado}: {supermercado_selecionado.categorias}")
-print(f"Categoria escolhido: {controlador_categoria.categoria_escolhida}")
+categoria_selecionada = controlador_categoria.categoria_selecionada
+print(f"Categorias do supermercado {supermercado_selecionado}: {supermercado_selecionado.categorias}")
+print(f"Categoria selecionada: {categoria_selecionada}")
 print()
 
 dados_qualificador1 = {
@@ -166,7 +159,7 @@ controlador_sistema.controlador_qualificador.criar_qualificador(dados=dados_qual
 controlador_sistema.controlador_qualificador.criar_qualificador(dados=dados_qualificador2)
 controlador_sistema.controlador_qualificador.criar_qualificador(dados=dados_qualificador3)
 print(
-    f"qualificadores categoria {controlador_categoria.categoria_escolhida}: {controlador_qualificador.qualificadores}")
+    f"Qualificadores categoria {controlador_categoria.categoria_selecionada}: {controlador_qualificador.qualificadores}")
 print(f"Qualificadores selecionados: {controlador_qualificador.qualificadores_selecionados}")
 print()
 
