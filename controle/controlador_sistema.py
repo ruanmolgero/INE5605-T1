@@ -1,40 +1,39 @@
-from entidade.supermercado import Supermercado
 from limite.tela_sistema import TelaSistema
-from controle.controlador_categorias import ControladorCategorias
-from controle.controlador_usuarios import ControladorUsuarios
-from controle.controlador_produtos_e_precos import ControladorProdutosPrecos
-from controle.controlador_qualificadores import ControladorQualificadores
-from controle.controlador_supermercados import ControladorSupermercados
+from controle.controlador_categoria import ControladorCategoria
+from controle.controlador_usuario import ControladorUsuario
+from controle.controlador_produto_preco import ControladorProdutoPreco
+from controle.controlador_qualificador import ControladorQualificador
+from controle.controlador_supermercado import ControladorSupermercado
 
 
 class ControladorSistema:
     def __init__(self) -> None:
-        self.__controlador_categorias = ControladorCategorias(self)
-        self.__controlador_usuarios = ControladorUsuarios(self)
-        self.__controlador_produtos_e_precos = ControladorProdutosPrecos(self)
-        self.__controlador_qualificadores = ControladorQualificadores(self)
-        self.__controlador_supermercados = ControladorSupermercados(self)
+        self.__controlador_categoria = ControladorCategoria(self)
+        self.__controlador_usuario = ControladorUsuario(self)
+        self.__controlador_produto_preco = ControladorProdutoPreco(self)
+        self.__controlador_qualificador = ControladorQualificador(self)
+        self.__controlador_supermercado = ControladorSupermercado(self)
         self.__tela_sistema = TelaSistema()
 
     @property
-    def controlador_categorias(self) -> ControladorCategorias:
-        return self.__controlador_categorias
+    def controlador_categoria(self) -> ControladorCategoria:
+        return self.__controlador_categoria
 
     @property
-    def controlador_usuarios(self) -> ControladorUsuarios:
-        return self.__controlador_usuarios
+    def controlador_usuario(self) -> ControladorUsuario:
+        return self.__controlador_usuario
 
     @property
-    def controlador_produtos_e_precos(self) -> ControladorProdutosPrecos:
-        return self.__controlador_produtos_e_precos
+    def controlador_produto_preco(self) -> ControladorProdutoPreco:
+        return self.__controlador_produto_preco
 
     @property
-    def controlador_qualificadores(self) -> ControladorQualificadores:
-        return self.__controlador_qualificadores
+    def controlador_qualificador(self) -> ControladorQualificador:
+        return self.__controlador_qualificador
 
     @property
-    def controlador_supermercados(self) -> ControladorSupermercados:
-        return self.__controlador_supermercados
+    def controlador_supermercado(self) -> ControladorSupermercado:
+        return self.__controlador_supermercado
 
     def inicializa_sistema(self):
         self.abre_tela_usuario()

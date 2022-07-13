@@ -2,7 +2,7 @@ from entidade.pessoa_juridica import PessoaJuridica
 
 
 class Supermercado:
-    def __init__(self, nome: str, endereco: str, cadastrante) -> None:
+    def __init__(self, nome: str, endereco: str, cadastrante: PessoaJuridica) -> None:
         if isinstance(nome, str):
             self.__nome = nome
         if isinstance(endereco, str):
@@ -30,11 +30,11 @@ class Supermercado:
             self.__endereco = endereco
 
     @property
-    def cadastrante(self) -> str:
+    def cadastrante(self) -> PessoaJuridica:
         return self.__cadastrante
 
     @cadastrante.setter
-    def cadastrante(self, cadastrante) -> PessoaJuridica:
+    def cadastrante(self, cadastrante) -> None:
         if isinstance(cadastrante, str):
             self.__cadastrante = cadastrante
 

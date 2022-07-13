@@ -72,7 +72,7 @@ class ControladorProdutosPrecos:
         count = 0
         while produto_novo and count < len(self.__produtos):
             if dados_produto["nome"] == self.__produtos[count].nome and \
-                    dados_produto["descrição"] == self.__produtos[count].descricao and \
+                    dados_produto["descricao"] == self.__produtos[count].descricao and \
                     qualificadores_produto.sort() == self.__produtos[count].qualificadores.sort():
                 preco_com_valor_e_data_atual = self.acha_preco_com_valor_e_data_atual(self.__produtos[count], valor_produto)
                 preco_com_cadastrante_e_data_atual = self.acha_preco_com_cadastrante_e_data_atual(self.__produtos[count], cadastrante)
@@ -94,7 +94,7 @@ class ControladorProdutosPrecos:
 
         if produto_novo:
             produto = Produto(nome=dados_produto['nome'],
-                              descricao=dados_produto['descrição'],
+                              descricao=dados_produto['descricao'],
                               qualificadores=qualificadores_produto)
             preco = Preco(valor=valor_produto, cadastrante=cadastrante)
             self.adiciona_preco_a_produto_novo(produto=produto, preco=preco)

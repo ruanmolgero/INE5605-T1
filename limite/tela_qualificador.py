@@ -25,6 +25,6 @@ class TelaQualificador(AbstractTela):
     def pega_dados_qualificador(self):
         dados_qualificador = {}
         print("-------- DADOS QUALIFICADOR ----------")
-        dados_qualificador["título"] = input("Título: ")
-        dados_qualificador["descrição"] = input("Descrição: ")
+        dados_qualificador["titulo"] = input("Título: ")
+        dados_qualificador["descricao"] = input("Descrição: ")
         return dados_qualificador

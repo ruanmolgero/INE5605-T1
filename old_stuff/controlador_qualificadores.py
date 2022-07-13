@@ -30,15 +30,15 @@ class ControladorQualificadores:
         qualificador_valido = True
         count = 0
         while qualificador_valido and count < len(self.__qualificadores):
-            if dados_qualificador["título"] == self.__qualificadores[count].titulo and \
-                    dados_qualificador["descrição"] == self.__qualificadores[count].descricao:
+            if dados_qualificador["titulo"] == self.__qualificadores[count].titulo and \
+                    dados_qualificador["descricao"] == self.__qualificadores[count].descricao:
                 self.__tela_qualificador.mostra_mensagem(
                     "Qualificador já cadastrada")
                 qualificador_valido = False
             count = count + 1
         if qualificador_valido:
-            qualificador = Qualificador(titulo=dados_qualificador['título'],
-                                        descricao=dados_qualificador['descrição'])
+            qualificador = Qualificador(titulo=dados_qualificador['titulo'],
+                                        descricao=dados_qualificador['descricao'])
             self.__qualificadores.append(qualificador)
             self.adicionar_qualificador_escolhido(qualificador)
 

@@ -28,7 +28,7 @@ class TelaProduto(AbstractTela):
         dados_produto = {}
         print("-------- DADOS PRODUTO ----------")
         dados_produto["nome"] = input("Nome: ")
-        dados_produto["descrição"] = input("Descrição: ")
+        dados_produto["descricao"] = input("Descrição: ")
         return dados_produto
 
     #TODO: tratamento float

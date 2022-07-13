@@ -26,5 +26,5 @@ class TelaCategoria(AbstractTela):
         dados_categoria = {}
         print("-------- DADOS CATEGORIA ----------")
         dados_categoria["nome"] = input("Nome: ")
-        dados_categoria["descrição"] = input("Descrição: ")
+        dados_categoria["descricao"] = input("Descrição: ")
         return dados_categoria

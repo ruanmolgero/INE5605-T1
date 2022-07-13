@@ -1,4 +1,3 @@
-from entidade import usuario
 from entidade.pessoa_fisica import PessoaFisica
 from entidade.pessoa_juridica import PessoaJuridica
 from limite.tela_usuario import TelaUsuario
@@ -17,7 +16,9 @@ class ControladorUsuarios:
 
     @usuario_logado.setter
     def usuario_logado(self, usuario_logado):
-        if isinstance(usuario_logado, PessoaFisica) or isinstance(usuario_logado, PessoaJuridica) or usuario_logado is None:
+        if isinstance(
+                usuario_logado, PessoaFisica) or isinstance(
+                usuario_logado, PessoaJuridica) or usuario_logado is None:
             self.__usuario_logado = usuario_logado
 
     def tipo_pessoa_logada(self):
@@ -55,31 +56,25 @@ class ControladorUsuarios:
             usuario = self.acha_usuario_por_cpf(dados_login['cpf'])
             if usuario:
                 if usuario.email == dados_login["email"]:
-                    self.__tela_usuario.mostra_mensagem(
-                        f"Seja Bem-Vindo {usuario.nome}")
+                    self.__tela_usuario.mostra_mensagem(f"Seja Bem-Vindo {usuario.nome}")
                     self.__usuario_logado = usuario
                     self.__controlador_sistema.abre_tela()
                 else:
-                    self.__tela_usuario.mostra_mensagem(
-                        "Informações de login incorretas!")
+                    self.__tela_usuario.mostra_mensagem("Informações de login incorretas!")
             else:
-                self.__tela_usuario.mostra_mensagem(
-                    "Informações de login incorretas!")
+                self.__tela_usuario.mostra_mensagem("Informações de login incorretas!")
         if "cnpj" in dados_login:
 
             usuario = self.acha_usuario_por_cnpj(dados_login['cnpj'])
             if usuario:
                 if usuario.email == dados_login["email"]:
-                    self.__tela_usuario.mostra_mensagem(
-                        f"Seja Bem-Vindo {usuario.nome}")
+                    self.__tela_usuario.mostra_mensagem(f"Seja Bem-Vindo {usuario.nome}")
                     self.__usuario_logado = usuario
                     self.__controlador_sistema.abre_tela()
                 else:
-                    self.__tela_usuario.mostra_mensagem(
-                        "Informações de login incorretas!")
+                    self.__tela_usuario.mostra_mensagem("Informações de login incorretas!")
             else:
-                self.__tela_usuario.mostra_mensagem(
-                    "Informações de login incorretas!")
+                self.__tela_usuario.mostra_mensagem("Informações de login incorretas!")
 
     def incluir_usuario(self):
         dados_usuario = self.__tela_usuario.pega_dados_usuario()

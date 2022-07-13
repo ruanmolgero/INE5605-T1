@@ -1,11 +1,11 @@
 from datetime import datetime
 
-from entidade.pessoa_fisica import PessoaFisica
-from entidade.pessoa_juridica import PessoaJuridica
+from entidade.usuario import Usuario
 
 
 class Preco:
-    def __init__(self, valor: float, cadastrante: PessoaFisica or PessoaJuridica) -> None:
+    # def __init__(self, valor: float, cadastrante: Usuario) -> None:
+    def __init__(self, valor: float) -> None:
         if isinstance(valor, float):
             self.__valor = valor
         self.__cadastrantes = []

@@ -28,14 +28,14 @@ class ControladorCategorias:
         count = 0
         while categoria_valida and count < len(self.__categorias):
             if dados_categoria["nome"] == self.__categorias[count].nome and \
-                    dados_categoria["descrição"] == self.__categorias[count].descricao:
+                    dados_categoria["descricao"] == self.__categorias[count].descricao:
                 self.__tela_categoria.mostra_mensagem(
                     "Categoria já cadastrada")
                 categoria_valida = False
             count = count + 1
         if categoria_valida:
             categoria = Categoria(nome=dados_categoria['nome'],
-                                  descricao=dados_categoria['descrição'])
+                                  descricao=dados_categoria['descricao'])
             self.__categorias.append(categoria)
             self.__categoria_escolhida = categoria
             self.__controlador_sistema.controlador_produtos_e_precos.abre_tela_produto()
