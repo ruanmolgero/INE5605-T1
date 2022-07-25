@@ -1,3 +1,4 @@
+from entidade.preco import Preco
 from entidade.qualificador import Qualificador
 from limite.tela_qualificador import TelaQualificador
 
@@ -19,11 +20,11 @@ class ControladorQualificador:
 
     def adicionar_qualificador_selecionado(self, qualificador):
         if isinstance(qualificador, Qualificador) and \
-                qualificador not in self.__qualificadores_selecionados:
-            self.__qualificadores_selecionados.append(qualificador)
+                qualificador not in self.qualificadores_selecionados:
+            self.qualificadores_selecionados.append(qualificador)
 
     def zerar_qualificadores_selecionados(self):
-        self.__qualificadores_selecionados = []
+        self.qualificadores_selecionados = []
 
     def achar_qualificador_igual(self, qualificador_procurado: Qualificador):
         qualificador = None
@@ -67,25 +68,37 @@ class ControladorQualificador:
         lista_opcoes = {}
         count = 1
         qualificadores = {}
+        # qualificadores_ja_selecionados = []
 
         for qualificador in self.__qualificadores:
             if qualificador not in qualificadores_selecionados:
                 lista_opcoes[count] = qualificador
-                qualificadores[count] = (
-                    qualificador.titulo, qualificador.descricao)
+                qualificadores[count] = (qualificador.titulo, qualificador.descricao)
+        # for qualificador in qualificadores_selecionados:
+            # qualificadores_ja_selecionados.append((qualificador.titulo, qualificador.descricao))
         lista_opcoes[len(lista_opcoes)+1] = self.criar_qualificador
         lista_opcoes["b"] = self.voltar
         lista_opcoes["q"] = self.encerrar_sistema
 
         while True:
-            opcao_selecionada = self.__tela_qualificador.tela_opcoes(
-                qualificadores)
+            opcao_selecionada = self.__tela_qualificador.tela_opcoes(qualificadores)
             if isinstance(opcao_selecionada, int) and opcao_selecionada in list(range(1, len(qualificadores) + 1)):
-                self.adicionar_qualificador_selecionado(
-                    lista_opcoes[opcao_selecionada])
-                self.abrir_tela(self.__qualificadores_selecionados)
+                self.adicionar_qualificador_selecionado(lista_opcoes[opcao_selecionada])
+                self.abrir_tela(self.qualificadores_selecionados)
+            # TODO: testa qualificadores selecionados e dependendo criar novo produto ou
+            # TODO: chama metodo para adicionar valor a produto existente
             elif opcao_selecionada == "c":
-                return
+                produto_selecionado = self.__controlador_sistema.controlador_produto_preco.produto_selecionado
+                if produto_selecionado:
+                    if (produto_selecionado.qualificadores.sort() == self.qualificadores_selecionados.sort()):
+                        valor_produto = self.__controlador_sistema.controlador_produto_preco.tela_produto.pega_valor_produto()
+                        # preco = Preco(valor=valor_produto)
+                        self.__controlador_sistema.controlador_produto_preco.adicionar_valor_a_produto_selecionado(
+                            valor=valor_produto)
+                        pass
+                        # self.__controlador_sistema.controlador_produto_preco.
+                else:
+                    return
             else:
                 funcao_selecionada = lista_opcoes[opcao_selecionada]
                 funcao_selecionada()

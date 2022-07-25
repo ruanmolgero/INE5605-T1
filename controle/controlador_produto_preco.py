@@ -57,64 +57,103 @@ class ControladorProdutoPreco:
 
         return produto
 
-    def adicionar_preco_a_produto_novo(self, produto: Produto, preco: Preco, cadastrante: PessoaFisica or PessoaJuridica):
+    def adicionar_preco_a_produto_novo(self, produto: Produto, preco: Preco,
+                                       cadastrante: PessoaFisica or PessoaJuridica):
         preco.cadastrantes.append(cadastrante)
         produto.precos.append(preco)
 
     def adicionar_preco_a_produto(self, produto: Produto, preco: Preco):
         produto.precos.append(preco)
 
+    def adicionar_valor_a_produto_selecionado(self, valor: float):
+        preco_existente = None
+
+        produto_selecionado = self.produto_selecionado
+        cadastrante_produto = self.__controlador_sistema.controlador_usuario.usuario_logado
+        preco = self.achar_preco_com_cadastrante_e_data_atual(
+            produto=produto_selecionado, cadastrante=cadastrante_produto)
+
+        if not preco:
+            pass
+        else:
+            # raise exceção ja cadastrou produto hoje
+            raise
+
+        for p in self.produto_selecionado.precos:
+            if p.data == datetime.now().date() and valor == p.valor:
+                preco_existente = True
+            # if p.data == datetime.now().date():
+            #     if valor == p.valor:
+            #         if self.__controlador_sistema.controlador_usuario.usuario_logado not in p.cadastrantes:
+            #             p.cadastrantes.append(self.__controlador_sistema.controlador_usuario.usuario_logado)
+            #         else:
+            #             # raise exceção ja cadastrou produto hoje
+            #             pass
+            #     else:
+            #         pass
+            # else:
+            #     preco = Preco(valor=valor)
+            #     preco.cadastrantes.append(self.self.__controlador_sistema.controlador_usuario.usuario_logado)
+            #     self.produto_selecionado.precos.append(preco)
+
     def adicionar_cadastrante_a_preco(self, preco: Preco, cadastrante: PessoaFisica or PessoaJuridica):
         preco.cadastrantes.append(cadastrante)
 
     def criar_produto(self, dados: dict = None):
         if not dados:
-            dados_produto = self.__tela_produto.pega_dados_produto()
-            self.__controlador_sistema.controlador_qualificador.abrir_tela()
+            if not self.__controlador_sistema.controlador_qualificador.qualificadores_selecionados:
+                # entra aqui caso qualificadores_selecionados == None (produto novo)
+                dados_produto = self.__tela_produto.pega_dados_produto()
+                self.__controlador_sistema.controlador_qualificador.abrir_tela()
+            else:
+                # produto existe mas qualificadores diferentes (produto "novo")
+                # produto com o mesmo nome e descrição mas qualificadores diferente é considerado novo
+                dados_produto = {}
+                dados_produto['nome'] = self.produto_selecionado.nome
+                dados_produto['descricao'] = self.produto_selecionado.descricao
             dados_produto['valor'] = self.__tela_produto.pega_valor_produto()
         else:
             dados_produto = dados
 
-        # Pega dados do sistema
         qualificadores_produto = self.__controlador_sistema.controlador_qualificador.qualificadores_selecionados
         cadastrante_produto = self.__controlador_sistema.controlador_usuario.usuario_logado
 
         produto = Produto(nome=dados_produto['nome'],
-                          descricao=dados_produto['descricao'],
-                          qualificadores=qualificadores_produto)
+                        descricao=dados_produto['descricao'],
+                        qualificadores=qualificadores_produto)
 
-        produto_existente = self.achar_produto_igual(produto)
+        preco = Preco(valor=dados_produto['valor'])
+        self.adicionar_preco_a_produto_novo(produto=produto, preco=preco, cadastrante=cadastrante_produto)
 
-        if produto_existente:
-            # produto nao é novo
-            preco = self.achar_preco_com_cadastrante_e_data_atual(
-                produto=produto_existente,
-                cadastrante=cadastrante_produto)
-
-            if not preco:
-                # usuario nao cadastrou nenhum produto hoje ainda
-                preco = self.achar_preco_com_valor_e_data_atual(
-                    produto=produto_existente,
-                    valor=dados_produto['valor'])
-                if not preco:
-                    # preco is None
-                    preco = Preco(valor=dados_produto['valor'], cadastrante=cadastrante_produto)
-                    self.adicionar_preco_a_produto(produto=produto_existente, preco=preco)
-                else:
-                    # preco is not None, mas cadastrante é novo
-                    self.adicionar_cadastrante_a_preco(preco=preco, cadastrante=cadastrante_produto)
-            else:
-                # raise exceção ja cadastrou produto hoje
-                raise
-        else:
-            # produto é novo
-            preco = Preco(valor=dados_produto['valor'])
-            self.adicionar_preco_a_produto_novo(produto=produto, preco=preco, cadastrante=cadastrante_produto)
-
-            self.produtos.append(produto)
+        self.produtos.append(produto)
 
         if not dados:
             self.abrir_tela_produto()
+
+        # produto_existente = self.achar_produto_igual(produto)
+        # if produto_existente:
+        #     # produto nao é novo
+        #     preco = self.achar_preco_com_cadastrante_e_data_atual(
+        #         produto=produto_existente,
+        #         cadastrante=cadastrante_produto)
+
+        #     if not preco:
+        #         # usuario nao cadastrou nenhum produto hoje ainda
+        #         preco = self.achar_preco_com_valor_e_data_atual(
+        #             produto=produto_existente,
+        #             valor=dados_produto['valor'])
+        #         if not preco:
+        #             # preco is None
+        #             preco = Preco(valor=dados_produto['valor'], cadastrante=cadastrante_produto)
+        #             self.adicionar_preco_a_produto(produto=produto_existente, preco=preco)
+        #         else:
+        #             # preco is not None, mas cadastrante é novo
+        #             self.adicionar_cadastrante_a_preco(preco=preco, cadastrante=cadastrante_produto)
+        #     else:
+        #         # raise exceção ja cadastrou produto hoje
+        #         raise
+        # else:
+        # produto é novo
 
     def adiciona_cadastrante_a_preco(self, preco, cadastrante):
         if cadastrante not in preco.cadastrantes:
@@ -149,8 +188,10 @@ class ControladorProdutoPreco:
                 produtos)
             if isinstance(opcao_selecionada, int) and opcao_selecionada in list(range(1, len(produtos) + 1)):
                 self.__produto_selecionado = lista_opcoes[opcao_selecionada]
-                if self.__controlador_sistema.controlador_qualificador.qualificadores_selecionados == []:
-                    self.__controlador_sistema.controlador_qualificador.abrir_tela()
+                # if self.__controlador_sistema.controlador_qualificador.qualificadores_selecionados == []:
+
+                self.__controlador_sistema.controlador_qualificador.abrir_tela()
+
             else:
                 funcao_selecionada = lista_opcoes[opcao_selecionada]
                 funcao_selecionada()
